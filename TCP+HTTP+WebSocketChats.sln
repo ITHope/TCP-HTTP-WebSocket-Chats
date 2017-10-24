@@ -29,9 +29,20 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "WebSocketClientWeb", "WebSo
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
 		VWDPort = "50317"
+		SlnRelativePath = "WebSocketClientWeb\"
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TCPClientConsoleMulti", "TCPClientConsoleMulti\TCPClientConsoleMulti.csproj", "{2B32FFB8-3384-440A-9916-60A178B5FF16}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TCPClientConsoleOne", "TCPClientConsoleOne\TCPClientConsoleOne.csproj", "{27046836-2418-49D9-86BD-20E115B884B5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TCPClientDesktop", "TCPClientDesktop\TCPClientDesktop.csproj", "{6A238051-36A0-4C2A-AFA9-B5DDE8E17A15}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TCPServerMulti", "TCPServerMulti\TCPServerMulti.csproj", "{2745A7ED-CAE5-445B-9171-66728EE75829}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TCPServerOne", "TCPServerOne\TCPServerOne.csproj", "{E7B3FA2F-A2C7-471A-B0DF-E25771BEF504}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestProjectChats", "UnitTestProjectChats\UnitTestProjectChats.csproj", "{D5BAEAD4-6414-45C6-B2A1-A024D2E0C7D9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +74,26 @@ Global
 		{2B32FFB8-3384-440A-9916-60A178B5FF16}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2B32FFB8-3384-440A-9916-60A178B5FF16}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2B32FFB8-3384-440A-9916-60A178B5FF16}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27046836-2418-49D9-86BD-20E115B884B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27046836-2418-49D9-86BD-20E115B884B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27046836-2418-49D9-86BD-20E115B884B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27046836-2418-49D9-86BD-20E115B884B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A238051-36A0-4C2A-AFA9-B5DDE8E17A15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A238051-36A0-4C2A-AFA9-B5DDE8E17A15}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A238051-36A0-4C2A-AFA9-B5DDE8E17A15}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A238051-36A0-4C2A-AFA9-B5DDE8E17A15}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2745A7ED-CAE5-445B-9171-66728EE75829}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2745A7ED-CAE5-445B-9171-66728EE75829}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2745A7ED-CAE5-445B-9171-66728EE75829}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2745A7ED-CAE5-445B-9171-66728EE75829}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E7B3FA2F-A2C7-471A-B0DF-E25771BEF504}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7B3FA2F-A2C7-471A-B0DF-E25771BEF504}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7B3FA2F-A2C7-471A-B0DF-E25771BEF504}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7B3FA2F-A2C7-471A-B0DF-E25771BEF504}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5BAEAD4-6414-45C6-B2A1-A024D2E0C7D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5BAEAD4-6414-45C6-B2A1-A024D2E0C7D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5BAEAD4-6414-45C6-B2A1-A024D2E0C7D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5BAEAD4-6414-45C6-B2A1-A024D2E0C7D9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
