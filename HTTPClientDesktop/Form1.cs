@@ -29,7 +29,7 @@ namespace ChatWinForms
             client = new TcpClient();
             try
             {
-                client.Connect("127.0.0.1", 8080);
+                client.Connect("123.100.0.1", 80);
 
                 NetworkStream stream = client.GetStream();
                 reader = new BinaryReader(stream);

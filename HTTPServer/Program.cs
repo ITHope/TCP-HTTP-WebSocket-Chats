@@ -8,17 +8,14 @@ namespace HTTPChats
 {
     class Program
     {
-        
         static void Main(string[] args)
         {
             //ServerTcpListener server = new ServerTcpListener("127.0.0.1", 8888);
             //server.Start();
             //Console.ReadKey();
 
-            ServerHTTPListener server = new ServerHTTPListener("127.0.0.1", "1024");
+            ServerHTTPListener server = new ServerHTTPListener("127.0.0.1", "80");
             Console.Read();
         }
-
-        
     }
 }

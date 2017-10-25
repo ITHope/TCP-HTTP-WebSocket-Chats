@@ -40,7 +40,7 @@ namespace HTTPClientConsole
         {
             Console.Write("Введите сообщение: ");
             string message = Console.ReadLine();
-            SendData("http://127.0.0.1:1024/", message);
+            SendData("http://123.0.0.1:80/", message);
             Console.Read();
         }
     }

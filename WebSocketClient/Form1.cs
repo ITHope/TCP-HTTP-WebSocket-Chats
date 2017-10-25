@@ -20,7 +20,7 @@ namespace HTTPWebSocketClient
     public partial class Form1 : Form
     {
         private WebSocket client;
-        const string host = "wss://localhost:5050";
+        const string host = "ws://localhost:5050";
 
         private static object consoleLock = new object();
         private const int sendChunkSize = 256;
@@ -42,7 +42,7 @@ namespace HTTPWebSocketClient
             client.OnMessage += (ss, ee) =>
                listViewChat.Items.Add("Echo: " +ee.Data);
             client.OnClose += (ss, ee) =>
-               listViewChat.Items.Add(string.Format("Disconnected with { 0}", host));
+               listViewChat.Items.Add(string.Format("Disconnected with {0}", host));
 
         }
 
