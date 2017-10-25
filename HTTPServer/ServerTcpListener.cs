@@ -11,15 +11,15 @@ using System.IO;
 
 namespace HTTPChats
 {
-    class Server
+    class ServerTcpListener
     {
         TcpListener server = null;
         Dictionary<TcpClient, int> clients = null;
         int count = 0;
 
-        public Server(string local, int port)
+        public ServerTcpListener(string local, int port)
         {
-            WebSocket sd = WebSocket.CreateServerBuffer(234);
+            //WebSocket sd = WebSocket.CreateServerBuffer(234);
             server = new TcpListener(IPAddress.Parse(local), port);
             clients = new Dictionary<TcpClient, int>();
         }

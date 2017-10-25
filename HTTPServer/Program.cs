@@ -11,9 +11,12 @@ namespace HTTPChats
         
         static void Main(string[] args)
         {
-            Server server = new Server("127.0.0.1", 8888);
-            server.Start();
-            Console.ReadKey();
+            //ServerTcpListener server = new ServerTcpListener("127.0.0.1", 8888);
+            //server.Start();
+            //Console.ReadKey();
+
+            ServerHTTPListener server = new ServerHTTPListener("127.0.0.1", "1024");
+            Console.Read();
         }
 
         
