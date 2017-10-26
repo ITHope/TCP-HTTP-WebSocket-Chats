@@ -5,6 +5,8 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
@@ -15,28 +17,37 @@ namespace ChatWinForms
 {
     public partial class Form1 : Form
     {
-        TcpClient client;
-        BinaryReader reader;
-        BinaryWriter writer;
+        HttpClient client;
+        string clientName;
+        Thread thread;
+        string strAddr;
 
         public Form1()
         {
             InitializeComponent();
+            
+        }
+
+        private string GetAddress(string strAddr, string pt)
+        {
+            string url = strAddr;
+            string port = pt;
+            string prefix = String.Format("http://{0}:{1}/", url, port);
+
+            return prefix;
         }
 
         private void btnConnect_Click(object sender, EventArgs e)
         {
-            client = new TcpClient();
             try
             {
-                client.Connect("123.100.0.1", 80);
 
-                NetworkStream stream = client.GetStream();
-                reader = new BinaryReader(stream);
-                writer = new BinaryWriter(stream);
-                Thread thread = new Thread(Waiting);
+                strAddr = GetAddress("localhost", "8888");
+                client = new HttpClient();
+                thread = new Thread(Listen);
                 thread.Start();
 
+                lbChat.Items.Add("Connection: Connected!");
             }
             catch
             {
@@ -44,51 +55,49 @@ namespace ChatWinForms
             }
         }
 
-        private void btnSend_Click(object sender, EventArgs e)
+        private async void Listen()
         {
-            try
+            while(true)
             {
-                if (writer != null)
+                try
                 {
-                    writer.Write(tbChatText.Text);
-                    lbChat.Items.Add("Client: " + tbChatText.Text);
-                }
-            }
-            catch
-            {
-                lbChat.Items.Add("Connection lost!");
-            }
-        }
-
-        private void Waiting()
-        {
-            try
-            {
-                while (true)
-                {
-                    string data = reader.ReadString();
-                    if (data.Length != 0)
+                    string resp = await client.GetStringAsync(strAddr + "?check=" + clientName);
+                    string[] parametrs = resp.Split('=');
+                    if (parametrs[0] == "message")
                     {
                         if (lbChat.InvokeRequired)
                         {
                             lbChat.BeginInvoke(new Action(delegate
                             {
-                                lbChat.Items.Add("Server:" + data);
+                                lbChat.Items.Add("Server:" + parametrs[1]);
                             }));
                         }
                     }
+                    else if (parametrs[0] == "name")
+                        clientName = parametrs[0];
                 }
-            }
-            catch
-            {
-                if (lbChat.InvokeRequired)
+                catch
                 {
-                    lbChat.BeginInvoke(new Action(delegate
-                    {
-                        lbChat.Items.Add("Connection lost!");
-                    }));
+                    lbChat.Items.Add("Connection: Failed!");
                 }
             }
         }
+
+        private async void btnSend_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var response = await client.PostAsync(strAddr, new StringContent("message=" + tbChatText.Text));
+                string content = await response.Content.ReadAsStringAsync();
+                if (content == "received")
+                    lbChat.Items.Add("Client: " + tbChatText.Text);
+            }
+            catch
+            {
+                lbChat.Items.Add("Cannot connect!");
+            }
+            
+        }
+        
     }
 }

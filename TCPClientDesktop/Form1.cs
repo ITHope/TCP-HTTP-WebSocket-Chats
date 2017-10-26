@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
@@ -24,23 +25,36 @@ namespace ChatWinForms
             InitializeComponent();
         }
 
+        private string GetLocalIP()
+        {
+            IPHostEntry host;
+            host = Dns.GetHostEntry(Dns.GetHostName());
+
+            foreach(IPAddress ip in host.AddressList)
+            {
+                if(ip.AddressFamily == AddressFamily.InterNetwork)
+                {
+                    return ip.ToString();
+                }
+            }
+            return "127.0.0.1";
+        }
+
         private void btnConnect_Click(object sender, EventArgs e)
         {
             client = new TcpClient();
             try
             {
-                client.Connect("127.0.0.1", 8080);
-
+                client.Connect(GetLocalIP(), 8080);
                 NetworkStream stream = client.GetStream();
                 reader = new BinaryReader(stream);
                 writer = new BinaryWriter(stream);
                 Thread thread = new Thread(Waiting);
                 thread.Start();
-
             }
             catch
             {
-                lbChat.Items.Add("Connection failed!");
+                lbChat.Items.Add("Connection: Failed!");
             }
         }
 
@@ -56,7 +70,7 @@ namespace ChatWinForms
             }
             catch
             {
-                lbChat.Items.Add("Connection lost!");
+                lbChat.Items.Add("Connection: Lost!");
             }
         }
 
@@ -85,7 +99,7 @@ namespace ChatWinForms
                 {
                     lbChat.BeginInvoke(new Action(delegate
                     {
-                        lbChat.Items.Add("Connection lost!");
+                        lbChat.Items.Add("Connection: Lost!");
                     }));
                 }
             }

@@ -12,57 +12,87 @@ namespace ChatServerMulti
 {
     class ChatServer
     {
-        TcpListener server = null;
+        TcpListener tcpListener = null;
         Dictionary<TcpClient, int> clients = null;
         int count = 0;
 
         public ChatServer(string local, int port)
         {
             IPAddress ipAddress = IPAddress.Parse(local);
-
-            server = new TcpListener(ipAddress, port);
+            tcpListener = new TcpListener(ipAddress, port);
             clients = new Dictionary<TcpClient, int>();
+        }
+
+        protected internal void AddConnection(TcpClient client)
+        {
+            if (clients == null)
+            {
+                clients = new Dictionary<TcpClient, int>();
+            }
+            clients.Add(client, ++count);
+        }
+
+        protected internal void RemoveConnection(TcpClient clientToRemove)
+        {
+            if(clients.Keys.Contains(clientToRemove))
+            {
+                clients.Remove(clientToRemove);
+            }
         }
 
         public void Start()
         {
-            server.Start();
-            Console.WriteLine("Connection: Waiting for a clients");
-            while (true)
+            try
             {
-                TcpClient client = server.AcceptTcpClient();
-                clients.Add(client, ++count);
-                new BinaryWriter(client.GetStream()).Write("Connection: Connected to server!");
-
-                Console.WriteLine($"Client {clients[client]} connected!");
-                ThreadPool.QueueUserWorkItem(DoWork, client);
+                tcpListener.Start();
+                Console.WriteLine("Connection: Listening...");
+                while (true)
+                {
+                    TcpClient tcpClient = tcpListener.AcceptTcpClient();
+                    clients.Add(tcpClient, ++count);
+                    new BinaryWriter(tcpClient.GetStream()).Write("Connection: Connected to server!");
+                    Console.WriteLine($"Client {clients[tcpClient]} connected!");
+                    ThreadPool.QueueUserWorkItem(Listen, tcpClient);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                Disconnect();
             }
         }
 
-        private void DoWork(object obj)
+        private void Listen(object obj)
         {
             try
             {
                 while (true)
                 {
-
                     string data = new BinaryReader((obj as TcpClient).GetStream()).ReadString();
                     Console.WriteLine($"Received from client {clients[obj as TcpClient]}: {data}");
-                    
                     foreach (TcpClient client in clients.Keys)
                     {
                         new BinaryWriter(client.GetStream()).Write(data);
                         Console.WriteLine($"Sent to client {clients[client]}: {data}");
                     }
-
                 }
             }
             catch
             {
                 (obj as TcpClient).Close();
-                Console.WriteLine($"Client {clients[(obj as TcpClient)]} have disconnected!");
+                Console.WriteLine($"Connection: Client {clients[(obj as TcpClient)]} disconnected!");
                 clients.Remove(obj as TcpClient);
             }
+        }
+
+        protected internal void Disconnect()
+        {
+            tcpListener.Stop();
+            foreach(TcpClient client in clients.Keys)
+            {
+                client.Close();
+            }
+            Environment.Exit(0);
         }
     }
 }

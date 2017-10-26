@@ -14,7 +14,7 @@ namespace HTTPChats
             //server.Start();
             //Console.ReadKey();
 
-            ServerHTTPListener server = new ServerHTTPListener("127.0.0.1", "80");
+            ServerHTTPListener server = new ServerHTTPListener("localhost", "8888");
             Console.Read();
         }
     }
