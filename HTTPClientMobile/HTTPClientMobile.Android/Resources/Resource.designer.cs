@@ -9,9 +9,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: global::Android.Runtime.ResourceDesignerAttribute("TCPClientMobile.Droid.Resource", IsApplication=true)]
+[assembly: global::Android.Runtime.ResourceDesignerAttribute("HTTPClientMobile.Droid.Resource", IsApplication=true)]
 
-namespace TCPClientMobile.Droid
+namespace HTTPClientMobile.Droid
 {
 	
 	
