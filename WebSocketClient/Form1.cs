@@ -22,18 +22,23 @@ namespace HTTPWebSocketClient
         private WebSocket client;
         const string host = "ws://localhost:5050";
 
-        private static object consoleLock = new object();
-        private const int sendChunkSize = 256;
-        private const int receiveChunkSize = 64;
-        private const bool verbose = true;
-        private static readonly TimeSpan delay = TimeSpan.FromMilliseconds(1000);
+        //private static object consoleLock = new object();
+        //private const int sendChunkSize = 256;
+        //private const int receiveChunkSize = 64;
+        //private const bool verbose = true;
+        //private static readonly TimeSpan delay = TimeSpan.FromMilliseconds(1000);
 
+        WSEngineC WSEngine;
 
         public Form1()
         {
             InitializeComponent();
 
             client = new WebSocket(host);
+            WSEngine = new WSEngineC();
+
+            WSEngine.AddMessageListener(new ActionEvent(textBoxChat.Text));
+            WSEngine.AddErrorListener(new ActionError("error"));
 
             client.OnOpen += (ss, ee) =>
                listViewChat.Items.Add(string.Format("Connected to {0} successfully", host));

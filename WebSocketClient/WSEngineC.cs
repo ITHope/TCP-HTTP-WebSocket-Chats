@@ -24,5 +24,19 @@ namespace HTTPWebSocketClient
                 c.Action(e);
             }
         }
+
+        public void AddErrorListener(ActionCommand cmd)
+        {
+            errL.Add(cmd);
+        }
+
+        public void Error(String str)
+        {
+            ActionError e = new ActionError(str);
+            foreach (ActionCommand c in errL)
+            {
+                c.Action(e);
+            }
+        }
     }
 }

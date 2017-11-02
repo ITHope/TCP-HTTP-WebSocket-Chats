@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace HTTPWebSocketClient
 {
-    public class ActionEvent : ActionCommand
+    class ActionError : ActionCommand
     {
         public string action;
-        public ActionEvent(string str)
+        public ActionError(string str)
         {
             action = str;
         }
         public void Action(ActionCommand e)
         {
-            throw new NotImplementedException();
+            
         }
     }
 }

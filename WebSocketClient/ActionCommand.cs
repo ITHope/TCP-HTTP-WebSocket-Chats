@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace HTTPWebSocketClient
 {
-    interface ActionCommand
+    public interface ActionCommand
     {
-        void Action(ActionEvent e);
+        void Action(ActionCommand e);
     }
 }
